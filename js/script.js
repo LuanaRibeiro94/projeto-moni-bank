@@ -4,6 +4,27 @@ import maiorDeIdade from "./valida-idade.js";
 // salvar todos os elementos com atributo de rerquired
 const camposDoFormulario = document.querySelectorAll("[required]");
 
+const formulario = document.querySelector("[data-formulario]");
+
+formulario.addEventListener("submit", (e) => {
+  // para não recarregar a página
+  e.preventDefault();
+
+  const listaRespostas = {
+    "nome": e.target.elements["nome"].value,
+    "email": e.target.elements["email"].value,
+    "rg": e.target.elements["rg"].value,
+    "cpf": e.target.elements["cpf"].value,
+    "aniversario": e.target.elements["aniversario"].value,
+  }
+  
+  // salva os dados informados no localstorage
+  localStorage.setItem("cadastro", JSON.stringify(listaRespostas));
+
+  // redireciona para outro form
+  window.location.href = './abrir-conta-form-2.html';
+});
+
 camposDoFormulario.forEach((campo) => {
   // para campo da lista vai ter um ouvinte do evento "blur" que chamará a função quando perder o foco no campo
   campo.addEventListener("blur", () => verificaCampo(campo));
