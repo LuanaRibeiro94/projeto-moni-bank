@@ -5,6 +5,7 @@ const botaoTirarFoto = document.querySelector("[data-tirar-foto]");
 const canvas = document.querySelector("[data-video-canvas]");
 const mensagem = document.querySelector("[data-mensagem");
 let imagemURL = "";
+const botaooEnviarFoto = document.querySelector("[data-enviar]");
 
 botaoIniciarCamera.addEventListener("click", async function () {
   // solicita ao usuário para ligar a câmera
@@ -27,4 +28,20 @@ botaoTirarFoto.addEventListener("click", function () {
   campoCamera.style.display = "none";
   // aparece a mensagem
   mensagem.style.display = "block";
+});
+
+botaooEnviarFoto.addEventListener("click", () => {
+  // salva na variável o objeto com a chave cadastro
+  const receberDadosExistentes = localStorage.getItem("cadastro");
+  // converte em json para visualizar como objeto
+  const converteRetorno = JSON.parse(receberDadosExistentes);
+  
+  // cria o atributo imagem e recebe a url da imagem tirada
+  converteRetorno.imagem = imagemURL;
+
+  // atualiza o local storage colocando também a foto tirada e converte em json
+  localStorage.setItem("cadastro", JSON.stringify(converteRetorno));
+
+  // envia para a página de cadastro 
+  window.location.href = "./abrir-conta-form-3.html";
 });
